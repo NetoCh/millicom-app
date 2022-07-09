@@ -13,7 +13,6 @@ import {
   Container,
   Col,
   Row,
-  Button,
   Spinner,
   Card,
   Pagination,
@@ -63,7 +62,7 @@ function App() {
                 <>
                   <Card.Header><h3 className='text-center'>#{data.num} - {data.title}</h3></Card.Header>
                   <Card.Img variant="top" className='p-3 my-3 mx-auto shadow' style={{ maxWidth: '25rem', cursor: 'pointer' }} src={data.img} onClick={() => { if (data.link) window.open(data.link, '_blank') }} />
-                  {data.link && <i className='text-center text-muted'><small>Info: <a href={data.link} target="_blank">{data.link}</a></small></i>}
+                  {data.link && <i className='text-center text-muted'><small>Info: <a href={data.link} target="_blank" rel="noreferrer">{data.link}</a></small></i>}
                   <Card.Body>
                     <Card.Title>{data.safe_title}</Card.Title>
                     <Card.Text><small className='text-muted'>{data.alt}</small></Card.Text>
