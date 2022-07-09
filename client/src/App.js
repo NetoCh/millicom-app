@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import qs from 'query-string';
 
 // Styles
 import './App.css';
@@ -14,7 +15,6 @@ import {
   Row,
   Button,
   Spinner,
-  // Carousel,
   Card,
   Pagination,
 } from 'react-bootstrap';
@@ -24,6 +24,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [dataId, setDataId] = useState(1);
   const [data, setData] = useState({});
+  const { id } = qs.parse(window.location.search);
 
   const getData = async function (id = 1) {
     try {
@@ -37,6 +38,8 @@ function App() {
       if (data.success) {
         setData(data.data);
         setDataId(data.data.num);
+        const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${data.data.num}`;
+        window.history.pushState({path:newurl},'',newurl);
       }
 
     } catch (error) {
@@ -47,7 +50,7 @@ function App() {
   }
 
   useEffect(() => {
-    getData(dataId);
+    getData(id || dataId);
   }, [])
 
   return (
@@ -58,8 +61,9 @@ function App() {
             <Card className="shadow mx-auto">
               {!loading ?
                 <>
-                  <Card.Header><h3 className='text-center'>{data.num} - {data.title}</h3></Card.Header>
-                  <Card.Img variant="top" className='p-3 my-3 mx-auto shadow' style={{ maxWidth: '25rem' }} src={data.img} onClick={() => { if (data.link) window.location.open(data.link) }} />
+                  <Card.Header><h3 className='text-center'>#{data.num} - {data.title}</h3></Card.Header>
+                  <Card.Img variant="top" className='p-3 my-3 mx-auto shadow' style={{ maxWidth: '25rem', cursor: 'pointer' }} src={data.img} onClick={() => { if (data.link) window.open(data.link, '_blank') }} />
+                  {data.link && <i className='text-center text-muted'><small>Info: <a href={data.link} target="_blank">{data.link}</a></small></i>}
                   <Card.Body>
                     <Card.Title>{data.safe_title}</Card.Title>
                     <Card.Text><small className='text-muted'>{data.alt}</small></Card.Text>
@@ -83,12 +87,16 @@ function App() {
                     </Pagination>
                   </Card.Body>
                   <Card.Footer className="text-muted">
-                    <span>{data.day}/{data.month}/{data.year}</span> {' '}
-                    <Card.Link href={data.news}><small>View More</small></Card.Link>
+                    <Row>
+                      <Col><span>{data.day}/{data.month}/{data.year}</span> {' '}</Col>
+                      {data.news &&
+                        <Col className='d-flex justify-content-end'><Card.Link href={data.news}><small>View More</small></Card.Link></Col>
+                      }
+                    </Row>
                   </Card.Footer>
                 </>
                 :
-                <Spinner className="mx-auto m-2" animation="border" role="status" size="lg" style={{ width: "25rem", height: "25rem" }}>
+                <Spinner className="mx-auto m-2" animation="border" role="status" size="lg" style={{ width: "20rem", height: "20rem" }}>
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               }

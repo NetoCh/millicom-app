@@ -5,9 +5,10 @@ App made for the position OSB/MTH Arquitect
 ## Requirements 
 
 - Docker 
+- Docker Compose
 
-## Get Started
-On the main root, run the command:
+## Run
+this is a docker-compose micro services eco system. To run the project use the following command:
 
 ```
 docker-compose up -d
