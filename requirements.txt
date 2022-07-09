@@ -1,0 +1,12 @@
+### Antes del Domingo 10 de Julio del 2022 antes de las 6:00 P.M.
+
+Crear aplicación en JAVA o nodjs 
+1. La aplicación debe de consumir el siguiente REST por defecto: https://xkcd.com/json.html   pero para desplazar https://xkcd.com/1200/info.0.json  , el TAG "num": 1200, es la imagen distinta es necesario desplazar por todos esos números cuando toque dar click en los botones de desplazamiento
+2. Presentar de inicio la imagen "img" actual que viene del objeto. 
+3. Mapear todo el contenido del JSON y presentar cada campo. 
+4. Disponibilidad botones de inicio, fin, siguiente y anterior. 
+5. Subir las fuentes a GIT y compartir al correo osman.gutierrez@millicom.com 
+6. Indicar que necesito tener instalado para ejecutarlo.
+
+
+#  https://xkcd.com/1200/info.0.json
