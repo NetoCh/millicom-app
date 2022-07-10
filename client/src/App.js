@@ -20,7 +20,6 @@ import {
   Popover,
   OverlayTrigger,
   Button,
-  Accordion,
   Modal,
 } from 'react-bootstrap';
 
@@ -55,25 +54,6 @@ function App() {
       </>
     }).filter(x => x !== undefined);
   }, [data])
-
-
-
-  const handleExtraParts = function () {
-    handleShow();
-    // if (!audio) {
-    //   const audioURL = data.extra_parts.post.split("'")[3];
-    //   audio = new Audio(audioURL);
-    // }
-
-    // if (isAudioPlaying) {
-    //   audio.pause();
-    //   setIsAudioPlaying(false);
-    // } else {
-    //   audio.currentTime = 0;
-    //   audio.play();
-    //   setIsAudioPlaying(true);
-    // }
-  }
 
   const getData = async function (id = 1) {
     try {
@@ -119,7 +99,7 @@ function App() {
                       <Row>
                         <Col className='text-center'>
                           <Button size="sm" variant={isAudioPlaying ? "danger" : "success"} onClick={() => {
-                            handleExtraParts();
+                            handleShow();
                           }}>Show Extras</Button>
                         </Col>
                       </Row>
