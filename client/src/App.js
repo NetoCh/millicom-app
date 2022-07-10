@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import qs from 'query-string';
+import parse from 'html-react-parser';
 
 // Styles
 import './App.css';
@@ -16,6 +17,8 @@ import {
   Spinner,
   Card,
   Pagination,
+  Popover,
+  OverlayTrigger,
 } from 'react-bootstrap';
 
 let request = "";
@@ -24,6 +27,14 @@ function App() {
   const [dataId, setDataId] = useState(1);
   const [data, setData] = useState({});
   const { id } = qs.parse(window.location.search);
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>
+        {parse(`${data.news}`)}
+      </Popover.Body>
+    </Popover>
+  );
 
   const getData = async function (id = 1) {
     try {
@@ -38,7 +49,7 @@ function App() {
         setData(data.data);
         setDataId(data.data.num);
         const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${data.data.num}`;
-        window.history.pushState({path:newurl},'',newurl);
+        window.history.pushState({ path: newurl }, '', newurl);
       }
 
     } catch (error) {
@@ -89,7 +100,11 @@ function App() {
                     <Row>
                       <Col><span>{data.day}/{data.month}/{data.year}</span> {' '}</Col>
                       {data.news &&
-                        <Col className='d-flex justify-content-end'><Card.Link href={data.news}><small>View More</small></Card.Link></Col>
+                        <Col className='d-flex justify-content-end'>
+                          <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+                            <Card.Link href="#"><small>View More</small></Card.Link>
+                          </OverlayTrigger>
+                        </Col>
                       }
                     </Row>
                   </Card.Footer>
